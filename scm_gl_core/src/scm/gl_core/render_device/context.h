@@ -238,6 +238,7 @@ public:
     void                        draw_transform_feedback(const primitive_topology in_topology, const transform_feedback_ptr& in_transform_feedback, int stream = -1);
 
     void                        draw_arrays(const primitive_topology in_topology, const int in_first_index, const int in_count);
+    void                        draw_arrays_instanced(const primitive_topology in_topology, const int in_first_index, const int in_count, const int in_instance_count = 1);
     void                        draw_elements(const int in_count, const int in_start_index = 0, const int in_base_vertex = 0);
     void                        draw_elements_instanced(const int in_count, const int in_start_index = 0, const int in_instance_count = 1, const int in_base_vertex = 0);
 
