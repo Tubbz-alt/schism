@@ -146,5 +146,29 @@ quad_geometry::draw(const render_context_ptr& in_context,
     in_context->draw_elements(4);
 }
 
+void
+quad_geometry::draw_instanced(const render_context_ptr& in_context,
+                              const int instance_count,
+                              const draw_mode in_draw_mode
+                             ) const
+{
+    context_vertex_input_guard vig(in_context);
+
+    in_context->bind_vertex_array(_vertex_array);
+
+    if (in_draw_mode == MODE_SOLID) {
+        in_context->bind_index_buffer(_solid_indices, PRIMITIVE_TRIANGLE_STRIP, TYPE_USHORT);
+    }
+    else if (in_draw_mode == MODE_WIRE_FRAME) {
+        in_context->bind_index_buffer(_wire_indices, PRIMITIVE_LINE_LOOP, TYPE_USHORT);
+    }
+    else {
+        return;
+    }
+
+    in_context->apply();
+    in_context->draw_elements_instanced(4,0, instance_count);
+}
+
 } // namespace gl
 } // namespace scm

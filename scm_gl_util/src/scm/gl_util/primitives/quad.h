@@ -36,6 +36,10 @@ public:
     void                draw(const render_context_ptr& in_context,
                              const draw_mode           in_draw_mode = MODE_SOLID) const;
 
+    void                draw_instanced(const render_context_ptr& in_context,
+                                       const int                 in_instance_count,
+                                       const draw_mode           in_draw_mode = MODE_SOLID) const;
+
 protected:
     buffer_ptr          _vertices;
 
