@@ -951,7 +951,7 @@ render_context::draw_arrays_instanced(const primitive_topology in_topology, cons
         || (0 > in_count)
         || (0 > in_instance_count)) {
         state().set(object_state::OS_ERROR_INVALID_VALUE);
-        SCM_GL_DGB("render_context::draw_arrays(): error invalid count or start index (< 0) " << "('" << state().state_string() << "')");
+        SCM_GL_DGB("render_context::draw_arrays_instanced(): error invalid count or start index or instance_count (< 0) " << "('" << state().state_string() << "')");
         return;
     }
 
@@ -961,9 +961,47 @@ render_context::draw_arrays_instanced(const primitive_topology in_topology, cons
 
     post_draw_setup();
 
-    gl_assert(glapi, leaving render_context::draw_arrays());
+    gl_assert(glapi, leaving render_context::draw_arrays_instanced());
 }
 
+void
+render_context::multi_draw_arrays(const primitive_topology in_topology, const int* in_first_indices, const int* in_counts, unsigned int draw_count) {
+  const opengl::gl_core& glapi = opengl_api();
+
+  if ( (0 > draw_count) ) {
+        state().set(object_state::OS_ERROR_INVALID_VALUE);
+        SCM_GL_DGB("render_context::multi_draw_arrays(): error invalid draw_count " << "('" << state().state_string() << "')");
+        return;
+  }
+  
+  pre_draw_setup();
+  
+  glapi.glMultiDrawArrays(util::gl_primitive_topology(in_topology), in_first_indices, in_counts, draw_count);
+
+  post_draw_setup();
+
+  gl_assert(glapi, leaving render_context::multi_draw_arrays); 
+}
+
+void
+render_context::multi_draw_arrays_indirect(const primitive_topology in_topology, const int draw_count) {
+  const opengl::gl_core& glapi = opengl_api();
+
+  if ( (0 > draw_count) ) {
+        state().set(object_state::OS_ERROR_INVALID_VALUE);
+        SCM_GL_DGB("render_context::multi_draw_arrays_indirect(): error invalid draw_count " << "('" << state().state_string() << "')");
+        return;
+  }
+  
+  pre_draw_setup();
+  
+  glapi.glMultiDrawArraysIndirect(util::gl_primitive_topology(in_topology), 0, draw_count, 0);
+
+  post_draw_setup();
+
+  gl_assert(glapi, leaving render_context::multi_draw_arrays_indirect);
+  
+}
 
 void
 render_context::draw_elements(const int in_count, const int in_start_index, const int in_base_vertex)
@@ -996,7 +1034,7 @@ render_context::draw_elements(const int in_count, const int in_start_index, cons
 }
 
 void
-render_context::draw_elements_instanced(const int in_count, const int in_start_index, const int in_instance_count, const int in_base_vertex)
+render_context::draw_elements_instanced(const int in_count, const int in_start_index, const int in_instance_count, const int in_base_vertex, const int in_base_instance)
 {
     const opengl::gl_core& glapi = opengl_api();
 
@@ -1014,13 +1052,14 @@ render_context::draw_elements_instanced(const int in_count, const int in_start_i
 
     pre_draw_setup();
 
-    glapi.glDrawElementsInstancedBaseVertex(
+    glapi.glDrawElementsInstancedBaseVertexBaseInstance(
         util::gl_primitive_topology(_applied_state._index_buffer_binding._primitive_topology),
         in_count,
         util::gl_base_type(_applied_state._index_buffer_binding._index_data_type),
         (char*)0 + _applied_state._index_buffer_binding._index_data_offset + size_of_type(_applied_state._index_buffer_binding._index_data_type) * in_start_index,
         in_instance_count,
-        in_base_vertex);
+        in_base_vertex,
+	in_base_instance);
 
     post_draw_setup();
 

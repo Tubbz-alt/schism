@@ -28,6 +28,7 @@ enum buffer_binding
     BIND_TRANSFORM_FEEDBACK_BUFFER   = 0x0040,
     BIND_ATOMIC_COUNTER_BUFFER       = 0x0080,
     BIND_STORAGE_BUFFER              = 0x0100,
+    BIND_INDIRECT_BUFFER             = 0x0200,
 
     BUFFER_BINDING_COUNT
 }; // enum buffer_binding

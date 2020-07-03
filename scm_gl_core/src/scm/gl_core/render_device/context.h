@@ -239,8 +239,11 @@ public:
 
     void                        draw_arrays(const primitive_topology in_topology, const int in_first_index, const int in_count);
     void                        draw_arrays_instanced(const primitive_topology in_topology, const int in_first_index, const int in_count, const int in_instance_count = 1);
+    void                        multi_draw_arrays(const primitive_topology in_topology, const int* in_first_indices, const int* in_counts, unsigned int draw_count);
+    void                        multi_draw_arrays_indirect(const primitive_topology in_topology, const int draw_count); //does not interact correctly with the indirect buffer yet
+
     void                        draw_elements(const int in_count, const int in_start_index = 0, const int in_base_vertex = 0);
-    void                        draw_elements_instanced(const int in_count, const int in_start_index = 0, const int in_instance_count = 1, const int in_base_vertex = 0);
+    void                        draw_elements_instanced(const int in_count, const int in_start_index = 0, const int in_instance_count = 1, const int in_base_vertex = 0, const int in_base_instance = 0);
 
     bool                        make_resident(const buffer_ptr&     in_buffer,
                                               const access_mode     in_access);
