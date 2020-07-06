@@ -483,7 +483,6 @@ void
 frame_buffer::apply_attachment(const render_context& in_context, unsigned in_attach_point, const attachment& in_attachment)
 {
     const opengl::gl_core& glapi = in_context.opengl_api();
-
     if (GL_RENDERBUFFER == in_attachment._target->object_target()) {
         if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
             glapi.glNamedFramebufferRenderbufferEXT(object_id(),
@@ -501,7 +500,7 @@ frame_buffer::apply_attachment(const render_context& in_context, unsigned in_att
     }
     else {
         if (   (in_attachment._target->array_layers() > 1)
-            && (in_attachment._layer >= 0)) {
+            && (in_attachment._layer >= 0) && (in_attachment._layer <= 100) ) {
             if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
                 glapi.glNamedFramebufferTextureLayerEXT(object_id(),
                                                         in_attach_point,
