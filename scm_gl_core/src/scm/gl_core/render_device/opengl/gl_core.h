@@ -469,6 +469,9 @@ public:
     PFNGLGETMULTISAMPLEFVPROC                       glGetMultisamplefv;
     PFNGLSAMPLEMASKIPROC                            glSampleMaski;
 
+    PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC         glFramebufferTextureMultiviewOVR;
+    //PFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC    glNamedFramebufferTextureMultiviewOVR;
+
     // version 3.3 ////////////////////////////////////////////////////////////////////////////////
     // use GL_ARB_shader_bit_encoding
     // use ARB_blend_func_extended

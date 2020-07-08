@@ -519,18 +519,41 @@ frame_buffer::apply_attachment(const render_context& in_context, unsigned in_att
         }
         else {
             if (in_attachment._tex_target == 0) {
-                if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
-                    glapi.glNamedFramebufferTextureEXT(object_id(),
-                                                        in_attach_point,
-                                                        in_attachment._target->object_id(),
-                                                        in_attachment._level);
-                }
-                else {
-                    glapi.glFramebufferTexture(object_target(),
-                                                in_attach_point,
-                                                in_attachment._target->object_id(),
-                                                in_attachment._level);
-                }
+                if(in_attachment._layer <= 10000) {
+	  	  if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
+                      glapi.glNamedFramebufferTextureEXT(object_id(),
+                                                          in_attach_point,
+                                                          in_attachment._target->object_id(),
+                                                          in_attachment._level);
+                  }
+                  else {
+                      glapi.glFramebufferTexture(object_target(),
+                                                  in_attach_point,
+                                                  in_attachment._target->object_id(),
+                                                  in_attachment._level);
+                  }
+		} else {
+                  if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
+                     printf("XXXXXXX BLOEDER BRANCH"); 
+	             /*glapi.glNamedFramebufferTextureMultiviewOVR(object_id(),
+                                                                in_attach_point,
+                                                                in_attachment._target->object_id(),
+                                                                in_attachment._level,
+								0, 2);
+                    */
+			  throw "Tja, das ist war ja klar ... ";
+		  }
+                  else {
+	              printf("Das ist ein guter Branch!");
+                      glapi.glFramebufferTextureMultiviewOVR(object_target(),
+                                                             in_attach_point,
+                                                             in_attachment._target->object_id(),
+                                                             in_attachment._level, 
+							     0, 2);
+		  }
+
+		}	
+
                 gl_assert(glapi, frame_buffer::apply_attachment() after glFramebufferTexture());
             } 
             else {
