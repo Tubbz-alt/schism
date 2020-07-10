@@ -88,6 +88,7 @@ public:
     bool version_4_2_available;
     bool version_4_3_available;
     bool version_4_4_available;
+    bool version_4_5_available;
 
     bool extension_ARB_bindless_texture;
     bool extension_ARB_cl_event;
@@ -468,9 +469,6 @@ public:
     PFNGLTEXIMAGE3DMULTISAMPLEPROC                  glTexImage3DMultisample;
     PFNGLGETMULTISAMPLEFVPROC                       glGetMultisamplefv;
     PFNGLSAMPLEMASKIPROC                            glSampleMaski;
-
-    PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC         glFramebufferTextureMultiviewOVR;
-    //PFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC    glNamedFramebufferTextureMultiviewOVR;
 
     // version 3.3 ////////////////////////////////////////////////////////////////////////////////
     // use GL_ARB_shader_bit_encoding
@@ -1025,6 +1023,10 @@ public:
 
     // NV_conservative_raster
     PFNGLSUBPIXELPRECISIONBIASNVPROC                glSubpixelPrecisionBiasNV;
+
+    ////////////////////// version 4.5
+    PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC         glFramebufferTextureMultiviewOVR;
+    PFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC    glNamedFramebufferTextureMultiviewOVR;
 
 }; // class gl_core
 

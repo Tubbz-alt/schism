@@ -115,6 +115,7 @@ gl_core::gl_core()
     version_4_2_available   = false;
     version_4_3_available   = false;
     version_4_4_available   = false;
+    version_4_5_available   = false;
 
     extension_ARB_bindless_texture              = false;
     extension_ARB_cl_event                      = false;
@@ -1070,6 +1071,13 @@ gl_core::init_entry_points()
     SCM_INIT_GL_ENTRY(PFNGLBINDIMAGETEXTURESPROC, glBindImageTextures, "OpenGL Core 4.4", init_success);
     SCM_INIT_GL_ENTRY(PFNGLBINDVERTEXBUFFERSPROC, glBindVertexBuffers, "OpenGL Core 4.4", init_success);
     version_4_4_available = version_4_3_available && init_success;
+
+    // version 4.5 ////////////////////////////////////////////////////////////////////////////////
+    init_success = true;
+    SCM_INIT_GL_ENTRY(PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC, glFramebufferTextureMultiviewOVR, "OpenGL Core 4.5", init_success);
+    SCM_INIT_GL_ENTRY(PFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC, glNamedFramebufferTextureMultiviewOVR, "OpenGL Core 4.5", init_success);
+    version_4_5_available = version_4_5_available && init_success;
+
 
     // GL_ARB_shading_language_include
     init_success = true;

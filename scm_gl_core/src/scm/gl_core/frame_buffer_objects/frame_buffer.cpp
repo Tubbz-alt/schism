@@ -535,13 +535,13 @@ frame_buffer::apply_attachment(const render_context& in_context, unsigned in_att
 		} else {
                   if (SCM_GL_CORE_USE_EXT_DIRECT_STATE_ACCESS) {
                      printf("XXXXXXX BLOEDER BRANCH"); 
-	             /*glapi.glNamedFramebufferTextureMultiviewOVR(object_id(),
+	             glapi.glNamedFramebufferTextureMultiviewOVR(object_id(),
                                                                 in_attach_point,
                                                                 in_attachment._target->object_id(),
                                                                 in_attachment._level,
 								0, 2);
-                    */
-			  throw "Tja, das ist war ja klar ... ";
+                    
+		//	  throw "Tja, das ist war ja klar ... ";
 		  }
                   else {
 	              printf("Das ist ein guter Branch!");
